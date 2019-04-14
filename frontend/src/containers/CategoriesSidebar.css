@@ -1,0 +1,10 @@
+.categories-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 10px;
+  border-right: 1px solid #bdbdbd;
+  margin-right: 10px;
+}

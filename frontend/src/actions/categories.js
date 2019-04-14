@@ -14,10 +14,9 @@ export const getAllCategories = () => dispatch => {
       return res.json();
     })
     .then(json => {
-      console.log(json);
       return dispatch({
         type: RECEIVED_CATEGORIES,
-        payload: json,
+        payload: json.categories,
       });
     })
     .catch(err => console.error('Failed to fetch all categories', err))
