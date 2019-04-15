@@ -1,6 +1,5 @@
 # TODO:
 
-- Create Category Sidebar Style
 - Create Default/Category View
 - Create Post List
 - Create Post List Item
@@ -27,6 +26,8 @@
 - Create messages reducers
 - Create messages Component
 - Create Breadcrumb
+- Create All Styles
+- Write unit tests
 
 # DONE:
 

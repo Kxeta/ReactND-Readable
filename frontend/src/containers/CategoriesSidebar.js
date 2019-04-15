@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
 import './CategoriesSidebar.css';
@@ -32,7 +32,6 @@ class CategoriesSidebar extends Component {
     const resultList = this.state.categoriesList.filter(category =>
       category.name.match(regexFilter),
     );
-    console.log('resultList', resultList);
 
     this.setState({
       filter: filterString,
@@ -42,7 +41,7 @@ class CategoriesSidebar extends Component {
 
   render() {
     const { filter, categoriesList } = this.state;
-    console.log(categoriesList);
+    const { category: actualCategory } = this.props.match.params;
     return (
       <div className="categories-sidebar">
         <label>
@@ -53,9 +52,14 @@ class CategoriesSidebar extends Component {
           />
         </label>
         <ul className="categories-list">
+          <li>{!actualCategory ? <b>All</b> : <Link to="/">All</Link>}</li>
           {categoriesList.map((category, key) => (
             <li key={key}>
-              <Link to={category.path}>{category.name}</Link>
+              {actualCategory === category.path ? (
+                <b>{category.name}</b>
+              ) : (
+                <Link to={category.path}>{category.name}</Link>
+              )}
             </li>
           ))}
         </ul>
@@ -69,4 +73,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(CategoriesSidebar);
+export default withRouter(connect(mapStateToProps)(CategoriesSidebar));
