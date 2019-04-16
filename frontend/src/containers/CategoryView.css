@@ -1,0 +1,20 @@
+.menuButton {
+  margin-right: 20;
+}
+
+.appBar {
+  margin-left: 240px;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+@media screen and (min-width: 600px) {
+  .appBar {
+    width: calc(100% - 240px) !important;
+  }
+  .menuButton {
+    display: none !important;
+  }
+}

@@ -9,6 +9,16 @@ import * as PostsActions from '../actions/posts';
 
 // Components
 import Loader from '../components/Loader';
+import {
+  CssBaseline,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+} from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
+
+import './CategoryView.css';
 
 export class CategoryView extends Component {
   static propTypes = {
@@ -42,21 +52,39 @@ export class CategoryView extends Component {
     return isLoading ? (
       <Loader />
     ) : (
-      <div>
-        <h1 className="category-title">{category ? category : 'ALL'}</h1>
-        {postsList.map((post, key) => {
-          const date = Moment(post.timestamp);
-          const momentDate = Moment(date).fromNow();
-          return (
-            <div key={key}>
-              <h3 className="post-title">{post.title}</h3>
-              <p className="post-body">{post.body}</p>
-              <p className="post-info">{`${post.author}(${date.format(
-                'MM/DD/YYYY',
-              )}) - ${momentDate}`}</p>
-            </div>
-          );
-        })}
+      <div className="home-content">
+        <CssBaseline />
+        <AppBar position="fixed" className="appBar">
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={this.handleDrawerToggle}
+              className="menuButton"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" noWrap>
+              {category ? category.toUpperCase() : 'ALL'}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <main className="content">
+          <div className="toolbar" />
+          {postsList.map((post, key) => {
+            const date = Moment(post.timestamp);
+            const momentDate = Moment(date).fromNow();
+            return (
+              <div key={key}>
+                <h3 className="post-title">{post.title}</h3>
+                <p className="post-body">{post.body}</p>
+                <p className="post-info">{`${post.author}(${date.format(
+                  'MM/DD/YYYY',
+                )}) - ${momentDate}`}</p>
+              </div>
+            );
+          })}
+        </main>
       </div>
     );
   }

@@ -45,9 +45,7 @@ class Home extends Component {
     ) : (
       <div className="home">
         <CategoriesSidebar />
-        <div className="home-content">
-          <CategoryView category={actualCategory} />
-        </div>
+        <CategoryView category={actualCategory} />
       </div>
     );
   }

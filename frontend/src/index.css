@@ -13,3 +13,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.toolbar {
+  min-height: 56px;
+}
+
+@media (min-width: 0px) and (orientation: landscape) {
+  .toolbar {
+    min-height: 48px;
+  }
+}
+
+@media (min-width: 600px) {
+  .toolbar {
+    min-height: 64px;
+  }
+}
