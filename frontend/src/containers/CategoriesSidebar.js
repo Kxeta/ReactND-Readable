@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Hidden, Drawer } from '@material-ui/core';
+import { Hidden, Drawer, TextField, Divider } from '@material-ui/core';
 // import PropTypes from 'prop-types';
 
 import './CategoriesSidebar.css';
@@ -28,10 +28,11 @@ class CategoriesSidebar extends Component {
   }
 
   handleFilterChange = e => {
+    console.log(e);
     const filterString = e.target.value;
-    const regexFilter = new RegExp(filterString);
+    const regexFilter = new RegExp(filterString.toUpperCase());
     const resultList = this.state.categoriesList.filter(category =>
-      category.name.match(regexFilter),
+      category.name.toUpperCase().match(regexFilter),
     );
 
     this.setState({
@@ -41,7 +42,7 @@ class CategoriesSidebar extends Component {
   };
 
   render() {
-    const { categoriesList } = this.state;
+    const { filter, categoriesList } = this.state;
     const sidebarCategoriesList = [
       { name: 'All', path: '/' },
       ...categoriesList,
@@ -60,7 +61,21 @@ class CategoriesSidebar extends Component {
                 paper: 'drawerPaper',
               }}
             >
-              <Sidebar title={'Categories'} list={sidebarCategoriesList} />
+              <div>
+                <div className="toolbar">
+                  <h2>Categories</h2>
+                  <TextField
+                    id="standard-search"
+                    label="Search field"
+                    type="search"
+                    value={filter}
+                    margin="normal"
+                    onChange={this.handleFilterChange}
+                  />
+                </div>
+                <Divider />
+                <Sidebar title={'Categories'} list={sidebarCategoriesList} />
+              </div>
             </Drawer>
           </Hidden>
           <Hidden xsDown implementation="css">
@@ -71,7 +86,21 @@ class CategoriesSidebar extends Component {
               variant="permanent"
               open
             >
-              <Sidebar title={'Categories'} list={sidebarCategoriesList} />
+              <div>
+                <div className="toolbar">
+                  <h2>Categories</h2>
+                  <TextField
+                    id="standard-search"
+                    label="Search a category"
+                    type="search"
+                    value={filter}
+                    margin="normal"
+                    onChange={this.handleFilterChange}
+                  />
+                </div>
+                <Divider />
+                <Sidebar title={'Categories'} list={sidebarCategoriesList} />
+              </div>
             </Drawer>
           </Hidden>
         </nav>

@@ -1,10 +1,23 @@
-@media screen and (min-width: 600px) {
+.drawerPaper {
+  width: 240px;
+}
+.toolbar {
+  min-height: 56px;
+}
+
+@media (min-width: 0px) and (orientation: landscape) {
+  .toolbar {
+    min-height: 48px;
+  }
+}
+
+@media (min-width: 600px) {
+  .toolbar {
+    min-height: 64px;
+  }
+
   .drawer {
     width: 240px;
     flex-shrink: 0;
   }
-}
-
-.drawerPaper {
-  width: 240px;
 }
