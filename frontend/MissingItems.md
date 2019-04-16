@@ -1,7 +1,5 @@
 # TODO:
 
-- Create Default/Category View
-- Create Post List
 - Create Post List Item
 - Create Post List Action Bar
   \_ Add
@@ -42,3 +40,5 @@
 - Create comments reducers
 - Create Category Sidebar
 - Create Category Sidebar Search
+- Create Default/Category View
+- Create Post List

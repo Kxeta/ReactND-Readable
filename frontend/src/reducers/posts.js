@@ -13,7 +13,8 @@ import {
 
 const initialState = {
   isLoading: false,
-  posts: [],
+  postsList: [],
+  post: null,
 };
 
 function categoryReducer(state = initialState, action) {
@@ -30,12 +31,12 @@ function categoryReducer(state = initialState, action) {
     case RECEIVED_POSTS:
       return Object.assign({}, state, {
         ...state,
-        posts: action.payload,
+        postsList: action.payload,
       });
     case RECEIVED_POST:
       return Object.assign({}, state, {
         ...state,
-        posts: [...state.posts, action.payload],
+        post: action.payload,
       });
     default:
       return state;
