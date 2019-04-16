@@ -1,2 +1,3 @@
 import Loader from './Loader';
-export { Loader };
+import Sidebar from './Sidebar';
+export { Loader, Sidebar };

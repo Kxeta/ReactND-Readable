@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Hidden, Drawer } from '@material-ui/core';
 // import PropTypes from 'prop-types';
 
 import './CategoriesSidebar.css';
+import { Sidebar } from '../components';
 
 class CategoriesSidebar extends Component {
   state = {
-    categoriesList: this.props.categories,
+    categoriesList: this.props.categories.categoriesList,
     filter: '',
   };
 
@@ -18,7 +19,7 @@ class CategoriesSidebar extends Component {
     ) {
       const regexFilter = new RegExp(prevState.filter);
       return {
-        categoriesList: nextProps.categories.filter(category =>
+        categoriesList: nextProps.categories.categoriesList.filter(category =>
           category.name.match(regexFilter),
         ),
       };
@@ -40,37 +41,48 @@ class CategoriesSidebar extends Component {
   };
 
   render() {
-    const { filter, categoriesList } = this.state;
-    const { category: actualCategory } = this.props.match.params;
+    const { categoriesList } = this.state;
+    const sidebarCategoriesList = [
+      { name: 'All', path: '/' },
+      ...categoriesList,
+    ];
     return (
       <div className="categories-sidebar">
-        <label>
-          <input
-            placeholder="Search a category!"
-            value={filter}
-            onChange={this.handleFilterChange}
-          />
-        </label>
-        <ul className="categories-list">
-          <li>{!actualCategory ? <b>All</b> : <Link to="/">All</Link>}</li>
-          {categoriesList.map((category, key) => (
-            <li key={key}>
-              {actualCategory === category.path ? (
-                <b>{category.name}</b>
-              ) : (
-                <Link to={category.path}>{category.name}</Link>
-              )}
-            </li>
-          ))}
-        </ul>
+        <nav className="drawer">
+          <Hidden smUp implementation="css">
+            <Drawer
+              container={this.props.container}
+              variant="temporary"
+              anchor={'left'}
+              open={this.state.mobileOpen}
+              onClose={this.handleDrawerToggle}
+              classes={{
+                paper: 'drawerPaper',
+              }}
+            >
+              <Sidebar title={'Categories'} list={sidebarCategoriesList} />
+            </Drawer>
+          </Hidden>
+          <Hidden xsDown implementation="css">
+            <Drawer
+              classes={{
+                paper: 'drawerPaper',
+              }}
+              variant="permanent"
+              open
+            >
+              <Sidebar title={'Categories'} list={sidebarCategoriesList} />
+            </Drawer>
+          </Hidden>
+        </nav>
       </div>
     );
   }
 }
 const mapStateToProps = state => {
   return {
-    categories: state.categories.categoriesList,
+    categories: state.categories,
   };
 };
 
-export default withRouter(connect(mapStateToProps)(CategoriesSidebar));
+export default connect(mapStateToProps)(CategoriesSidebar);
