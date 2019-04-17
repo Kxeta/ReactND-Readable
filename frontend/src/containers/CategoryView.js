@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Moment from 'moment';
 import { bindActionCreators } from 'redux';
 // import PropTypes from 'prop-types'
 
@@ -8,7 +7,10 @@ import { bindActionCreators } from 'redux';
 import * as PostsActions from '../actions/posts';
 
 // Components
-import Loader from '../components/Loader';
+import { Loader, PostCard } from '../components';
+import MenuIcon from '@material-ui/icons/Menu';
+
+// Styles
 import {
   CssBaseline,
   AppBar,
@@ -16,7 +18,6 @@ import {
   IconButton,
   Typography,
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
 
 import './CategoryView.css';
 
@@ -59,7 +60,7 @@ export class CategoryView extends Component {
             <IconButton
               color="inherit"
               aria-label="Open drawer"
-              onClick={this.handleDrawerToggle}
+              onClick={this.props.handleDrawerToggle}
               className="menuButton"
             >
               <MenuIcon />
@@ -72,17 +73,7 @@ export class CategoryView extends Component {
         <main className="content">
           <div className="toolbar" />
           {postsList.map((post, key) => {
-            const date = Moment(post.timestamp);
-            const momentDate = Moment(date).fromNow();
-            return (
-              <div key={key}>
-                <h3 className="post-title">{post.title}</h3>
-                <p className="post-body">{post.body}</p>
-                <p className="post-info">{`${post.author}(${date.format(
-                  'MM/DD/YYYY',
-                )}) - ${momentDate}`}</p>
-              </div>
-            );
+            return <PostCard post={post} key={key} />;
           })}
         </main>
       </div>

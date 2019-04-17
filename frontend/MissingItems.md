@@ -1,10 +1,12 @@
 # TODO:
 
-- Create Post List Item
 - Create Post List Action Bar
-  \_ Add
   \_ Sort
-  \_ Search
+- Create Post List Item Action Bar
+  \_ Delete
+  \_ Details
+  \_ Edit
+  \_ Vote
 - Create Post Detail View
 - Create Post Detail View Actions
   \_ Edit
@@ -42,3 +44,6 @@
 - Create Category Sidebar Search
 - Create Default/Category View
 - Create Post List
+- Create Post List Item
+- Create Post List Action Bar
+  \_ Add

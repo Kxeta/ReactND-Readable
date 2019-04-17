@@ -10,15 +10,25 @@ import * as CategoriesActions from '../actions/categories';
 // Components
 import { Loader } from '../components';
 import CategoriesSidebar from './CategoriesSidebar';
+import { Fab } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 
 // Style
-import './Home.css';
 import CategoryView from './CategoryView';
+import theme from '../theme/theme';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import './Home.css';
 
 class Home extends Component {
   state = {
     actualCategory: null,
+    mobileOpen: false,
   };
+
+  handleDrawerToggle = () => {
+    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+  };
+
   async componentDidMount() {
     await this.props.getAllCategories();
     const { category } = this.props.match.params;
@@ -39,14 +49,25 @@ class Home extends Component {
 
   render() {
     const { isFetching } = this.props.categories;
-    const { actualCategory } = this.state;
+    const { actualCategory, mobileOpen } = this.state;
     return isFetching ? (
       <Loader />
     ) : (
-      <div className="home">
-        <CategoriesSidebar />
-        <CategoryView category={actualCategory} />
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <div className="home">
+          <CategoriesSidebar
+            mobileOpen={mobileOpen}
+            handleDrawerToggle={this.handleDrawerToggle}
+          />
+          <CategoryView
+            category={actualCategory}
+            handleDrawerToggle={this.handleDrawerToggle}
+          />
+          <Fab color="secondary" aria-label="Add Post" className="add-button">
+            <AddIcon />
+          </Fab>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

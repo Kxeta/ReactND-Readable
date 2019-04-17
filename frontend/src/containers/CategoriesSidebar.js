@@ -55,8 +55,8 @@ class CategoriesSidebar extends Component {
               container={this.props.container}
               variant="temporary"
               anchor={'left'}
-              open={this.state.mobileOpen}
-              onClose={this.handleDrawerToggle}
+              open={this.props.mobileOpen}
+              onClose={this.props.handleDrawerToggle}
               classes={{
                 paper: 'drawerPaper',
               }}

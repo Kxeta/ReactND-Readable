@@ -9,3 +9,9 @@
   display: flex;
   flex: 1;
 }
+
+.home .add-button {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
