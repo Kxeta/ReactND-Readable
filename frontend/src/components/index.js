@@ -1,4 +1,5 @@
 import Loader from './Loader';
 import Sidebar from './Sidebar';
 import PostCard from './PostCard';
-export { Loader, Sidebar, PostCard };
+import Header from './Header';
+export { Header, Loader, Sidebar, PostCard };

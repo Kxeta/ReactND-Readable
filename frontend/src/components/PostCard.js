@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'moment';
-import { Card, CardHeader, IconButton, CardContent } from '@material-ui/core';
+import {
+  Card,
+  CardHeader,
+  IconButton,
+  CardContent,
+  CardActionArea,
+} from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import './PostCard.css';
 
 export default class PostCard extends Component {
   static propTypes = {
-    prop: PropTypes,
+    // prop: PropTypes,
   };
 
   state = {
@@ -37,18 +43,24 @@ export default class PostCard extends Component {
 
     return (
       <Card className="post-card">
-        <CardHeader
-          action={
-            <IconButton onClick={this.handleOpenActions}>
-              <MoreVertIcon />
-            </IconButton>
+        <CardActionArea
+          onClick={() =>
+            this.props.handleClick && this.props.handleClick(this.props.post)
           }
-          title={title}
-          subheader={`${author} - ${date.format('MM/DD/YYYY')}`}
-        />
-        <CardContent>
-          <div>{body}</div>
-        </CardContent>
+        >
+          <CardHeader
+            action={
+              <IconButton onClick={this.handleOpenActions}>
+                <MoreVertIcon />
+              </IconButton>
+            }
+            title={title}
+            subheader={`${author} - ${date.format('MM/DD/YYYY')}`}
+          />
+          <CardContent>
+            <div>{body}</div>
+          </CardContent>
+        </CardActionArea>
       </Card>
     );
   }

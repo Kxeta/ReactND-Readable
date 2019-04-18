@@ -8,18 +8,12 @@ import * as PostsActions from '../actions/posts';
 
 // Components
 import { Loader, PostCard } from '../components';
-import MenuIcon from '@material-ui/icons/Menu';
 
 // Styles
-import {
-  CssBaseline,
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-} from '@material-ui/core';
 
 import './CategoryView.css';
+import Header from '../components/Header';
+import { withRouter } from 'react-router-dom';
 
 export class CategoryView extends Component {
   static propTypes = {
@@ -54,26 +48,23 @@ export class CategoryView extends Component {
       <Loader />
     ) : (
       <div className="home-content">
-        <CssBaseline />
-        <AppBar position="fixed" className="appBar">
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.props.handleDrawerToggle}
-              className="menuButton"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
-              {category ? category.toUpperCase() : 'ALL'}
-            </Typography>
-          </Toolbar>
-        </AppBar>
+        <Header
+          title={category ? category.toUpperCase() : 'ALL'}
+          handleDrawerToggle={this.props.handleDrawerToggle}
+          hasSidebar
+        />
         <main className="content">
           <div className="toolbar" />
           {postsList.map((post, key) => {
-            return <PostCard post={post} key={key} />;
+            return (
+              <PostCard
+                post={post}
+                key={key}
+                handleClick={post =>
+                  this.props.history.push(`/post/${post.id}`)
+                }
+              />
+            );
           })}
         </main>
       </div>
@@ -94,7 +85,9 @@ const mapDispatchToProps = dispatch =>
     dispatch,
   );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CategoryView);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(CategoryView),
+);

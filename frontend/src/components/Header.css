@@ -1,0 +1,13 @@
+.menuButton {
+  margin-right: 20;
+}
+
+@media screen and (min-width: 600px) {
+  .appBar {
+    width: calc(100% - 240px) !important;
+    margin-left: 240px;
+  }
+  .menuButton {
+    display: none !important;
+  }
+}
