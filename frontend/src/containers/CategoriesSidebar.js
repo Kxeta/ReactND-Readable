@@ -17,7 +17,7 @@ class CategoriesSidebar extends Component {
       JSON.stringify(nextProps.categories) !==
       JSON.stringify(prevState.categoriesList)
     ) {
-      const regexFilter = new RegExp(prevState.filter);
+      const regexFilter = new RegExp(prevState.filter, 'i');
       return {
         categoriesList: nextProps.categories.categoriesList.filter(category =>
           category.name.match(regexFilter),
@@ -28,11 +28,10 @@ class CategoriesSidebar extends Component {
   }
 
   handleFilterChange = e => {
-    console.log(e);
     const filterString = e.target.value;
-    const regexFilter = new RegExp(filterString.toUpperCase());
+    const regexFilter = new RegExp(filterString, 'i');
     const resultList = this.state.categoriesList.filter(category =>
-      category.name.toUpperCase().match(regexFilter),
+      category.name.match(regexFilter),
     );
 
     this.setState({
