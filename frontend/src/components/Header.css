@@ -1,7 +1,9 @@
 .menuButton {
   margin-right: 20;
 }
-
+.appBar > div {
+  justify-content: space-between;
+}
 @media screen and (min-width: 600px) {
   .appBar {
     width: calc(100% - 240px) !important;

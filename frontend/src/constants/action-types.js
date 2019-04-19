@@ -11,6 +11,7 @@ export const IS_SENDING_POST = 'IS_SENDING_POST';
 export const SAVED_POST = 'SAVED_POST';
 export const EDITED_POST = 'EDITED_POST';
 export const DELETED_POST = 'DELETED_POST';
+export const SORT_POSTS = 'SORT_POSTS';
 
 // Comments
 export const IS_FETCHING_COMMENT = 'IS_FETCHING_COMMENT';

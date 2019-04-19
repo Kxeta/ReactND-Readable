@@ -11,7 +11,14 @@ import { ArrowBack, Menu } from '@material-ui/icons';
 import './Header.css';
 
 const Header = props => {
-  const { hasSidebar, title, handleDrawerToggle, goBack, handleGoBack } = props;
+  const {
+    hasSidebar,
+    title,
+    handleDrawerToggle,
+    goBack,
+    handleGoBack,
+    children,
+  } = props;
   return (
     <div>
       <CssBaseline />
@@ -39,6 +46,7 @@ const Header = props => {
           <Typography variant="h6" color="inherit" noWrap>
             {title}
           </Typography>
+          {children}
         </Toolbar>
       </AppBar>
     </div>

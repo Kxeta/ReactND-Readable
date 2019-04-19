@@ -10,6 +10,7 @@ import {
   RECEIVED_POST,
   RECEIVED_POSTS,
   SAVED_POST,
+  SORT_POSTS,
 } from '../constants/action-types';
 import { baseURL, headers } from '../constants/utils';
 
@@ -25,7 +26,6 @@ export const getAllPosts = () => dispatch => {
       return res.json();
     })
     .then(json => {
-      console.log(json);
       return dispatch({
         type: RECEIVED_POSTS,
         payload: json,
@@ -38,6 +38,16 @@ export const getAllPosts = () => dispatch => {
         payload: false,
       }),
     );
+};
+
+export const sortPosts = (criteria, asc = true) => dispatch => {
+  return dispatch({
+    type: SORT_POSTS,
+    payload: {
+      criteria,
+      asc,
+    },
+  });
 };
 
 // Post
@@ -176,34 +186,23 @@ export const deletePostById = postId => dispatch => {
 };
 
 export const votePostById = (postId, vote) => dispatch => {
-  dispatch({
-    type: IS_SENDING_POST,
-    payload: true,
-  });
   return fetch(`${baseURL}/posts/${postId}`, {
     headers,
     method: 'POST',
-    body: {
+    body: JSON.stringify({
       option: vote,
-    },
+    }),
   })
     .then(res => {
       return res.json();
     })
     .then(json => {
-      console.log(json);
       return dispatch({
         type: SAVED_POST,
         payload: json,
       });
     })
-    .catch(err => console.error('Failed to save your vote', err))
-    .then(() =>
-      dispatch({
-        type: IS_SENDING_POST,
-        payload: false,
-      }),
-    );
+    .catch(err => console.error('Failed to save your vote', err));
 };
 
 // Posts from Category
