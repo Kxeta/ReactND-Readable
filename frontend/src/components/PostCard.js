@@ -4,24 +4,20 @@ import Moment from 'moment';
 import {
   Card,
   CardHeader,
-  IconButton,
   CardContent,
   CardActionArea,
   CardActions,
   Typography,
-  Menu,
-  MenuItem,
+  Divider,
 } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import CommentIcon from '@material-ui/icons/Comment';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 
 import './PostCard.css';
 import AlertDialog from './AlertDialog';
+import PostCardActions from './PostCardActions';
+import { PostMenuActions } from '.';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 
 export default class PostCard extends Component {
   static propTypes = {
@@ -32,14 +28,6 @@ export default class PostCard extends Component {
     openActions: false,
     menuElement: null,
     openDialog: false,
-  };
-
-  handleToggleActions = evt => {
-    const { openActions } = this.state;
-    this.setState({
-      openActions: !openActions,
-      menuElement: openActions ? null : evt.currentTarget,
-    });
   };
 
   handleUpVote = evt => {
@@ -75,10 +63,42 @@ export default class PostCard extends Component {
       voteScore,
       commentCount,
     } = this.props.post;
-    const { openActions, menuElement, openDialog } = this.state;
-    const { postOwner } = this.props;
     const date = Moment(timestamp);
     const momentDate = Moment(date).fromNow();
+    const { openDialog } = this.state;
+    const { post, postOwner, handleClick } = this.props;
+    const menuElements = [
+      {
+        onClick: () => handleClick(post),
+        content: (
+          <Fragment>
+            <OpenInNewIcon aria-label="View Post" />
+            View Post
+          </Fragment>
+        ),
+      },
+    ];
+
+    if (postOwner) {
+      menuElements.push({
+        onClick: e => console.log(e),
+        content: (
+          <Fragment>
+            <EditIcon aria-label="Edit" />
+            Edit
+          </Fragment>
+        ),
+      });
+      menuElements.push({
+        onClick: this.toggleDeleteDialog,
+        content: (
+          <Fragment>
+            <DeleteIcon aria-label="Delete" />
+            Delete
+          </Fragment>
+        ),
+      });
+    }
 
     return (
       <Card className="post-card" id={id}>
@@ -91,51 +111,10 @@ export default class PostCard extends Component {
           handleCancel={this.toggleDeleteDialog}
         />
         <CardHeader
-          action={
-            <Fragment>
-              <IconButton
-                onClick={this.handleToggleActions}
-                aria-owns={openActions ? 'fade-menu' : undefined}
-                aria-haspopup="true"
-              >
-                <MoreVertIcon />
-              </IconButton>
-              <Menu
-                id="fade-menu"
-                anchorEl={menuElement}
-                open={openActions}
-                onClose={this.handleToggleActions}
-              >
-                <MenuItem
-                  onClick={() =>
-                    this.props.handleClick &&
-                    this.props.handleClick(this.props.post)
-                  }
-                >
-                  <OpenInNewIcon aria-label="View Post" />
-                  View Post
-                </MenuItem>
-                {postOwner && [
-                  <MenuItem
-                    onClick={this.handleToggleActions}
-                    key={`edit-${id}`}
-                  >
-                    <EditIcon aria-label="Edit" />
-                    Edit
-                  </MenuItem>,
-                  <MenuItem
-                    onClick={this.toggleDeleteDialog}
-                    key={`delete-${id}`}
-                  >
-                    <DeleteIcon aria-label="Delete" />
-                    Delete
-                  </MenuItem>,
-                ]}
-              </Menu>
-            </Fragment>
-          }
+          action={<PostMenuActions menuElements={menuElements} />}
           title={category.toUpperCase()}
           subheader={`${author} - ${momentDate}`}
+          titleTypographyProps={{ variant: 'h6', color: 'secondary' }}
         />
         <CardActionArea
           onClick={() =>
@@ -143,26 +122,20 @@ export default class PostCard extends Component {
           }
         >
           <CardContent>
-            <Typography variant="h5">{title}</Typography>
+            <Typography variant="h5" color="primary">
+              {title}
+            </Typography>
             <Typography paragraph>{body}</Typography>
           </CardContent>
         </CardActionArea>
+        <Divider />
         <CardActions className="post-card-actions" disableActionSpacing>
-          <div>
-            <IconButton aria-label="Comment">
-              <CommentIcon fontSize="small" color="primary" />
-            </IconButton>
-            <Typography>{`(${commentCount})`}</Typography>
-          </div>
-          <div>
-            <IconButton aria-label="UpVote" onClick={this.handleUpVote}>
-              <ThumbUpIcon fontSize="small" color="secondary" />
-            </IconButton>
-            <Typography>{voteScore}</Typography>
-            <IconButton aria-label="DownVote" onClick={this.handleDownVote}>
-              <ThumbDownIcon fontSize="small" color="error" />
-            </IconButton>
-          </div>
+          <PostCardActions
+            commentCount={commentCount}
+            voteScore={voteScore}
+            handleUpVote={this.handleUpVote}
+            handleDownVote={this.handleDownVote}
+          />
         </CardActions>
       </Card>
     );

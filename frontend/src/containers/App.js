@@ -10,7 +10,7 @@ class App extends Component {
       <div className="app">
         <Switch>
           <Route exact path="/:category?" component={Home} />
-          <Route exact path="/post/:postID?" component={Post} />
+          <Route exact path="/post/:postID" component={Post} />
         </Switch>
       </div>
     );

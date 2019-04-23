@@ -1,0 +1,18 @@
+.post-container {
+  padding-top: 65px;
+}
+
+.post-main-content {
+  padding: 15px;
+}
+
+.content-header {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-body {
+  margin-top: 20px;
+  margin-bottom: 15px;
+}

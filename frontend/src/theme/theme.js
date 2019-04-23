@@ -9,4 +9,7 @@ export default createMuiTheme({
       main: '#ffb300',
     },
   },
+  typography: {
+    useNextVariants: true,
+  },
 });

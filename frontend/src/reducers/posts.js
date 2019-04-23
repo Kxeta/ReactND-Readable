@@ -53,6 +53,10 @@ function categoryReducer(state = initialState, action) {
             return post;
           })
           .filter(post => !post.deleted),
+        post:
+          state.post.id === action.payload.id
+            ? { ...action.payload }
+            : { ...state.post },
       });
     case SORT_POSTS:
       return Object.assign({}, state, {

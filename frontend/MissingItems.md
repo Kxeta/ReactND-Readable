@@ -1,11 +1,5 @@
 # TODO:
 
-- Create Post List Action Bar
-  \_ Sort
-- Create Post Detail View
-- Create Post Detail View Actions
-  \_ Edit
-  \_ Delete
 - Create Post Create/Edit View
 - Create Comment List
 - Create Comment List Action Bar
@@ -17,11 +11,11 @@
   \_ Edit
   \_ Delete
 - Create Comment Form
+- Review All Styles
 - Create messages actions
 - Create messages reducers
 - Create messages Component
 - Create Breadcrumb
-- Create All Styles
 - Write unit tests
 
 # DONE:
@@ -42,8 +36,13 @@
 - Create Post List Item
 - Create Post List Action Bar
   \_ Add
+  \_ Sort
 - Create Post List Item Action Bar
   \_ Details
   \_ Delete
   \_ Edit
   \_ Vote
+- Create Post Detail View
+- Create Post Detail View Actions
+  \_ Edit
+  \_ Delete

@@ -1,13 +1,3 @@
 .post-card {
   margin-bottom: 15px;
 }
-
-.post-card-actions {
-  justify-content: space-between;
-}
-
-.post-card-actions div {
-  display: inline-flex;
-  justify-content: space-between;
-  align-items: center;
-}
