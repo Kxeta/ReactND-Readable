@@ -146,7 +146,7 @@ export class CategoryView extends Component {
                 post={post}
                 key={key}
                 handleClick={post =>
-                  this.props.history.push(`/post/${post.id}`)
+                  this.props.history.push(`${post.category}/post/${post.id}`)
                 }
                 onUpVote={postID => this.props.votePostById(postID, upVote)}
                 onDownVote={postID => this.props.votePostById(postID, downVote)}

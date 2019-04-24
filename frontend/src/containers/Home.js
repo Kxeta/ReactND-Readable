@@ -63,7 +63,16 @@ class Home extends Component {
             category={actualCategory}
             handleDrawerToggle={this.handleDrawerToggle}
           />
-          <Fab color="secondary" aria-label="Add Post" className="add-button">
+          <Fab
+            color="secondary"
+            aria-label="Add Post"
+            className="add-button"
+            onClick={() =>
+              this.props.history.push(
+                `${actualCategory ? '/' + actualCategory : ''}/post/new`,
+              )
+            }
+          >
             <AddIcon />
           </Fab>
         </div>

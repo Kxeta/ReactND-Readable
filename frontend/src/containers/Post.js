@@ -43,13 +43,13 @@ export class Post extends Component {
     this.handleBack();
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const { postID } = this.props.match.params;
     if (postID !== 'new') {
-      this.props.getPostById(postID);
+      await this.props.getPostById(postID);
     }
     this.setState({
-      postID: postID !== 'new' ? postID : null,
+      postID: postID,
       showLoader: false,
     });
   }
