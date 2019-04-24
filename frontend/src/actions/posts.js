@@ -93,14 +93,14 @@ export const sendPost = ({ title, body, authorID, category }) => dispatch => {
   });
   const timestamp = Date.now();
   const id = uuid.v1();
-  const requestBody = {
+  const requestBody = JSON.stringify({
     id,
     timestamp,
     title,
     body,
     author: authorID,
     category,
-  };
+  });
   return fetch(`${baseURL}/posts`, {
     headers,
     method: 'POST',
@@ -110,19 +110,20 @@ export const sendPost = ({ title, body, authorID, category }) => dispatch => {
       return res.json();
     })
     .then(json => {
-      console.log(json);
-      return dispatch({
+      dispatch({
         type: SAVED_POST,
         payload: json,
       });
+      return json;
     })
     .catch(err => console.error('Failed to save this post', err))
-    .then(() =>
+    .then(json => {
       dispatch({
         type: IS_SENDING_POST,
         payload: false,
-      }),
-    );
+      });
+      return json;
+    });
 };
 
 export const editPostById = ({ postId, title, postBody }) => dispatch => {
@@ -217,11 +218,11 @@ export const getAllPostsFromCategory = categoryID => dispatch => {
       return res.json();
     })
     .then(json => {
-      console.log(json);
-      return dispatch({
+      dispatch({
         type: RECEIVED_CATEGORY_POSTS,
         payload: json,
       });
+      return json;
     })
     .catch(err =>
       console.error('Failed to fetch all posts for this category', err),

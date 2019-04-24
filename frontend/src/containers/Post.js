@@ -55,12 +55,14 @@ export class Post extends Component {
   }
 
   handleBack = () => {
+    const { history } = this.props;
+    const { postID, category } = this.props.match.params;
     this.setState(
       {
         showLoader: true,
       },
       () => {
-        this.props.history.push('/');
+        history.push(`/${category ? category : ''}`);
       },
     );
   };

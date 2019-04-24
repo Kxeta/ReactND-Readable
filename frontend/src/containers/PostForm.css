@@ -1,0 +1,13 @@
+.post-main-form-wrapper {
+  padding: 20px;
+}
+
+.post-main-form-wrapper form > div {
+  margin-bottom: 20px;
+}
+
+.post-main-form-wrapper .footer-actions {
+  margin-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+}

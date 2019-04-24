@@ -16,3 +16,7 @@
   margin-top: 20px;
   margin-bottom: 15px;
 }
+
+.post-body p {
+  white-space: pre-wrap;
+}

@@ -20,6 +20,8 @@ import {
   MenuItem,
 } from '@material-ui/core';
 
+import './PostForm.css';
+
 class PostForm extends Component {
   // static propTypes = {
   //   prop: PropTypes
@@ -37,7 +39,6 @@ class PostForm extends Component {
 
   async componentDidMount() {
     const { postID, category } = this.props.match.params;
-    console.log('PostForm', postID);
     if (!this.props.categoriesList.length) {
       await this.props.getAllCategories();
     }
@@ -61,16 +62,21 @@ class PostForm extends Component {
     }
     this.setState({
       showLoader: false,
+      postCategory: category || '',
     });
   }
 
   handleBack = () => {
+    const { history } = this.props;
+    const { postID, category } = this.props.match.params;
     this.setState(
       {
         showLoader: true,
       },
       () => {
-        this.props.history.push('/');
+        history.push(
+          `/${category ? category : ''}${postID ? '/post/' + postID : ''}`,
+        );
       },
     );
   };
@@ -83,6 +89,28 @@ class PostForm extends Component {
     this.setState({
       [name]: value,
     });
+  };
+
+  handleSubmit = async event => {
+    const { loggedUser, history } = this.props;
+    const {
+      postID,
+      postTitle,
+      postContent,
+      postCategory,
+      postAuthor,
+      postDeleted,
+    } = this.state;
+    event.preventDefault();
+    if (!postID) {
+      const newPost = await this.props.sendPost({
+        title: postTitle,
+        body: postContent,
+        authorID: loggedUser,
+        category: postCategory,
+      });
+      history.push(`/${postCategory}/post/${newPost.id}`);
+    }
   };
 
   render() {
@@ -109,7 +137,7 @@ class PostForm extends Component {
             />
             <main className="content">
               <Paper className="post-main-form-wrapper">
-                <form autoComplete="off">
+                <form autoComplete="off" onSubmit={this.handleSubmit}>
                   <TextField
                     id="postTitle"
                     name="postTitle"
@@ -134,7 +162,12 @@ class PostForm extends Component {
                   />
 
                   <FormControl fullWidth required>
-                    <InputLabel htmlFor="postCategory">Category</InputLabel>
+                    <InputLabel
+                      htmlFor="postCategory"
+                      shrink={postCategory ? true : false}
+                    >
+                      Category
+                    </InputLabel>
                     <Select
                       value={postCategory}
                       onChange={this.handleInputChange}
@@ -147,7 +180,7 @@ class PostForm extends Component {
                       ))}
                     </Select>
                   </FormControl>
-                  <div>
+                  <div className="footer-actions">
                     <Button
                       variant="contained"
                       color="secondary"
@@ -182,6 +215,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getPostById: PostsActions.getPostById,
+      sendPost: PostsActions.sendPost,
       getAllCategories: CategoriesActions.getAllCategories,
     },
     dispatch,
