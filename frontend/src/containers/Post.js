@@ -68,7 +68,7 @@ export class Post extends Component {
   };
 
   render() {
-    const { isLoading, post, votePostById, loggedUser } = this.props;
+    const { isLoading, post, votePostById, loggedUser, history } = this.props;
     const { showLoader, postID, openDialog } = this.state;
     let date = null;
     let momentDate = null;
@@ -78,7 +78,7 @@ export class Post extends Component {
       momentDate = Moment(date).fromNow();
       if (post.author === loggedUser && postID) {
         menuElements.push({
-          onClick: e => console.log(e),
+          onClick: () => history.push(`/${post.category}/post/${postID}/edit`),
           content: (
             <Fragment>
               <EditIcon aria-label="Edit" />

@@ -1,6 +1,5 @@
 # TODO:
 
-- Create Post Create/Edit View
 - Create Comment List
 - Create Comment List Action Bar
   \_ Add
@@ -15,7 +14,6 @@
 - Create messages actions
 - Create messages reducers
 - Create messages Component
-- Create Breadcrumb
 - Write unit tests
 
 # DONE:
@@ -46,3 +44,4 @@
 - Create Post Detail View Actions
   \_ Edit
   \_ Delete
+- Create Post Create/Edit View

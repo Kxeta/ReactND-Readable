@@ -93,14 +93,7 @@ class PostForm extends Component {
 
   handleSubmit = async event => {
     const { loggedUser, history } = this.props;
-    const {
-      postID,
-      postTitle,
-      postContent,
-      postCategory,
-      postAuthor,
-      postDeleted,
-    } = this.state;
+    const { postID, postTitle, postContent, postCategory } = this.state;
     event.preventDefault();
     if (!postID) {
       const newPost = await this.props.sendPost({
@@ -110,18 +103,24 @@ class PostForm extends Component {
         category: postCategory,
       });
       history.push(`/${postCategory}/post/${newPost.id}`);
+    } else {
+      await this.props.editPostById({
+        postID,
+        title: postTitle,
+        postBody: postContent,
+      });
+      history.push(`/${postCategory}/post/${postID}`);
     }
   };
 
   render() {
-    const { isLoading, post, loggedUser, categoriesList } = this.props;
+    const { isLoading, post, categoriesList } = this.props;
     const {
       showLoader,
       postID,
       postTitle,
       postContent,
       postCategory,
-      postAuthor,
       postDeleted,
     } = this.state;
     return (
@@ -172,6 +171,7 @@ class PostForm extends Component {
                       value={postCategory}
                       onChange={this.handleInputChange}
                       input={<Input name="postCategory" id="postCategory" />}
+                      disabled={postID ? true : false}
                     >
                       {categoriesList.map((category, key) => (
                         <MenuItem value={category.name} key={key}>
@@ -216,6 +216,7 @@ const mapDispatchToProps = dispatch =>
     {
       getPostById: PostsActions.getPostById,
       sendPost: PostsActions.sendPost,
+      editPostById: PostsActions.editPostById,
       getAllCategories: CategoriesActions.getAllCategories,
     },
     dispatch,

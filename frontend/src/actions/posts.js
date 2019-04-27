@@ -52,17 +52,16 @@ export const sortPosts = (criteria, asc = true) => dispatch => {
 
 // Post
 
-export const getPostById = postId => dispatch => {
+export const getPostById = postID => dispatch => {
   dispatch({
     type: IS_FETCHING_POST,
     payload: true,
   });
-  return fetch(`${baseURL}/posts/${postId}`, { headers })
+  return fetch(`${baseURL}/posts/${postID}`, { headers })
     .then(res => {
       return res.json();
     })
     .then(json => {
-      console.log(json);
       return dispatch({
         type: RECEIVED_POST,
         payload: json,
@@ -126,24 +125,23 @@ export const sendPost = ({ title, body, authorID, category }) => dispatch => {
     });
 };
 
-export const editPostById = ({ postId, title, postBody }) => dispatch => {
+export const editPostById = ({ postID, title, postBody }) => dispatch => {
   dispatch({
     type: IS_SENDING_POST,
     payload: true,
   });
-  return fetch(`${baseURL}/posts/${postId}`, {
+  return fetch(`${baseURL}/posts/${postID}`, {
     headers,
     method: 'PUT',
-    body: {
+    body: JSON.stringify({
       title,
       body: postBody,
-    },
+    }),
   })
     .then(res => {
       return res.json();
     })
     .then(json => {
-      console.log(json);
       return dispatch({
         type: EDITED_POST,
         payload: json,
@@ -158,12 +156,12 @@ export const editPostById = ({ postId, title, postBody }) => dispatch => {
     );
 };
 
-export const deletePostById = postId => dispatch => {
+export const deletePostById = postID => dispatch => {
   dispatch({
     type: IS_SENDING_POST,
     payload: true,
   });
-  return fetch(`${baseURL}/posts/${postId}`, {
+  return fetch(`${baseURL}/posts/${postID}`, {
     headers,
     method: 'DELETE',
   })
@@ -171,7 +169,6 @@ export const deletePostById = postId => dispatch => {
       return res.json();
     })
     .then(json => {
-      console.log(json);
       return dispatch({
         type: DELETED_POST,
         payload: json,
@@ -186,8 +183,8 @@ export const deletePostById = postId => dispatch => {
     );
 };
 
-export const votePostById = (postId, vote) => dispatch => {
-  return fetch(`${baseURL}/posts/${postId}`, {
+export const votePostById = (postID, vote) => dispatch => {
+  return fetch(`${baseURL}/posts/${postID}`, {
     headers,
     method: 'POST',
     body: JSON.stringify({

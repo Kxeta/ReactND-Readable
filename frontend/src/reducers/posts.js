@@ -41,7 +41,6 @@ function categoryReducer(state = initialState, action) {
       });
     case DELETED_POST:
     case SAVED_POST:
-      console.log(action.payload);
       return Object.assign({}, state, {
         ...state,
         postsList: state.postsList

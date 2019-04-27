@@ -148,6 +148,11 @@ export class CategoryView extends Component {
                 handleClick={post =>
                   this.props.history.push(`${post.category}/post/${post.id}`)
                 }
+                handleClickEdit={post =>
+                  this.props.history.push(
+                    `${post.category}/post/${post.id}/edit`,
+                  )
+                }
                 onUpVote={postID => this.props.votePostById(postID, upVote)}
                 onDownVote={postID => this.props.votePostById(postID, downVote)}
                 onDeletePost={postID => this.props.deletePostById(postID)}

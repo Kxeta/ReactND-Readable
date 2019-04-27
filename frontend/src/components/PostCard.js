@@ -66,7 +66,7 @@ export default class PostCard extends Component {
     const date = Moment(timestamp);
     const momentDate = Moment(date).fromNow();
     const { openDialog } = this.state;
-    const { post, postOwner, handleClick } = this.props;
+    const { post, postOwner, handleClick, handleClickEdit } = this.props;
     const menuElements = [
       {
         onClick: () => handleClick(post),
@@ -81,7 +81,7 @@ export default class PostCard extends Component {
 
     if (postOwner) {
       menuElements.push({
-        onClick: e => console.log(e),
+        onClick: () => handleClickEdit(post),
         content: (
           <Fragment>
             <EditIcon aria-label="Edit" />
