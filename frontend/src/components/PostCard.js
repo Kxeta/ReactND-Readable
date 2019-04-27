@@ -125,7 +125,9 @@ export default class PostCard extends Component {
             <Typography variant="h5" color="primary">
               {title}
             </Typography>
-            <Typography paragraph>{body}</Typography>
+            <Typography paragraph className="post-card-text">
+              {body.length > 50 ? `${body.substring(0, 50)}...` : body}
+            </Typography>
           </CardContent>
         </CardActionArea>
         <Divider />

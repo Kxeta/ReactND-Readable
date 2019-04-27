@@ -1,3 +1,6 @@
 .post-card {
   margin-bottom: 15px;
 }
+.post-card-text {
+  white-space: pre-line;
+}
