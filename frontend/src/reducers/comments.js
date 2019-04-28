@@ -4,7 +4,7 @@ import {
   IS_FETCHING_COMMENTS,
   RECEIVED_COMMENTS,
   IS_SENDING_COMMENT,
-  // SAVED_COMMENT,
+  SAVED_COMMENT,
   // EDITED_COMMENT,
   // DELETED_COMMENT,
 } from '../constants/action-types';
@@ -26,12 +26,17 @@ function categoryReducer(state = initialState, action) {
     case RECEIVED_COMMENTS:
       return Object.assign({}, state, {
         ...state,
-        comments: action.payload,
+        comments: action.payload.filter(
+          comment => !comment.deleted && !comment.parentDeleted,
+        ),
       });
     case RECEIVED_COMMENT:
+    case SAVED_COMMENT:
       return Object.assign({}, state, {
         ...state,
-        comments: [...state.comments, action.payload],
+        comments: [...state.comments, action.payload].filter(
+          comment => !comment.deleted && !comment.parentDeleted,
+        ),
       });
     default:
       return state;

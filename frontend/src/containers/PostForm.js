@@ -121,7 +121,7 @@ class PostForm extends Component {
       postTitle,
       postContent,
       postCategory,
-      postDeleted,
+      // postDeleted,
     } = this.state;
     return (
       <div className="post-container">

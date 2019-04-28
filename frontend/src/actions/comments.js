@@ -84,25 +84,27 @@ export const sendComment = ({ body, authorID, parentID }) => dispatch => {
   return fetch(`${baseURL}/comments`, {
     headers,
     method: 'POST',
-    body: requestBody,
+    body: JSON.stringify(requestBody),
   })
     .then(res => {
       return res.json();
     })
     .then(json => {
       console.log(json);
-      return dispatch({
+      dispatch({
         type: SAVED_COMMENT,
         payload: json,
       });
+      return console.log(json);
     })
     .catch(err => console.error('Failed to save this comment', err))
-    .then(() =>
+    .then(json => {
       dispatch({
         type: IS_SENDING_COMMENT,
         payload: false,
-      }),
-    );
+      });
+      return json;
+    });
 };
 
 export const editCommentById = ({ commentID, commentBody }) => dispatch => {

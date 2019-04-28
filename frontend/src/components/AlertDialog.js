@@ -36,7 +36,7 @@ class AlertDialog extends React.Component {
   };
 
   render() {
-    const { cancelText, confirmText, alertText } = this.props;
+    const { cancelText, confirmText, alertText, alertTitle } = this.props;
     return (
       <Dialog
         open={this.state.open}
@@ -44,9 +44,7 @@ class AlertDialog extends React.Component {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">{alertTitle}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             {alertText}

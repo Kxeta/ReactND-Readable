@@ -107,6 +107,7 @@ export default class PostCard extends Component {
           cancelText="No! Go back!"
           confirmText="Delete it, I'm sure!"
           alertText="Are you sure that you want to remove this post? It probably cannot be undone!!"
+          alertTitle="Woow! Delete??"
           handleConfirm={this.handleDelete}
           handleCancel={this.toggleDeleteDialog}
         />
