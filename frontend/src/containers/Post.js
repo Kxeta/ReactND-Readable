@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Moment from 'moment';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -56,7 +56,7 @@ export class Post extends Component {
 
   handleBack = () => {
     const { history } = this.props;
-    const { postID, category } = this.props.match.params;
+    const { category } = this.props.match.params;
     this.setState(
       {
         showLoader: true,
@@ -130,7 +130,7 @@ export class Post extends Component {
                       'MM/DD/YYYY',
                     )})`}</Typography>
                   </div>
-                  {menuElements.length && (
+                  {menuElements.length > 0 && (
                     <div>
                       <PostMenuActions menuElements={menuElements} />
                     </div>
