@@ -23,7 +23,6 @@ export const getAllCommentsByPost = postID => dispatch => {
       return res.json();
     })
     .then(json => {
-      console.log(json);
       return dispatch({
         type: RECEIVED_COMMENTS,
         payload: json,
@@ -52,7 +51,6 @@ export const getComment = commentID => dispatch => {
       return res.json();
     })
     .then(json => {
-      console.log(json);
       return dispatch({
         type: RECEIVED_COMMENT,
         payload: json,
@@ -67,7 +65,7 @@ export const getComment = commentID => dispatch => {
     );
 };
 
-export const sendComment = ({ body, authorID, parentID }) => dispatch => {
+export const sendComment = ({ body, author, parentId }) => dispatch => {
   dispatch({
     type: IS_SENDING_COMMENT,
     payload: true,
@@ -78,8 +76,8 @@ export const sendComment = ({ body, authorID, parentID }) => dispatch => {
     id,
     timestamp,
     body,
-    author: authorID,
-    parentID,
+    author,
+    parentId,
   };
   return fetch(`${baseURL}/comments`, {
     headers,
@@ -90,12 +88,11 @@ export const sendComment = ({ body, authorID, parentID }) => dispatch => {
       return res.json();
     })
     .then(json => {
-      console.log(json);
       dispatch({
         type: SAVED_COMMENT,
         payload: json,
       });
-      return console.log(json);
+      return json;
     })
     .catch(err => console.error('Failed to save this comment', err))
     .then(json => {
@@ -113,19 +110,18 @@ export const editCommentById = ({ commentID, commentBody }) => dispatch => {
     type: IS_SENDING_COMMENT,
     payload: true,
   });
-  return fetch(`${baseURL}/posts/${commentID}`, {
+  return fetch(`${baseURL}/comments/${commentID}`, {
     headers,
     method: 'PUT',
-    body: {
+    body: JSON.stringify({
       timestamp,
       body: commentBody,
-    },
+    }),
   })
     .then(res => {
       return res.json();
     })
     .then(json => {
-      console.log(json);
       return dispatch({
         type: EDITED_COMMENT,
         payload: json,
@@ -140,7 +136,7 @@ export const editCommentById = ({ commentID, commentBody }) => dispatch => {
     );
 };
 
-export const deletePostById = commentID => dispatch => {
+export const deleteCommentById = commentID => dispatch => {
   dispatch({
     type: IS_SENDING_COMMENT,
     payload: true,
@@ -153,13 +149,12 @@ export const deletePostById = commentID => dispatch => {
       return res.json();
     })
     .then(json => {
-      console.log(json);
       return dispatch({
         type: DELETED_COMMENT,
         payload: json,
       });
     })
-    .catch(err => console.error('Failed to delete this post', err))
+    .catch(err => console.error('Failed to delete this comment', err))
     .then(() =>
       dispatch({
         type: IS_SENDING_COMMENT,
@@ -176,17 +171,16 @@ export const voteCommentById = (commentID, vote) => dispatch => {
   return fetch(`${baseURL}/comments/${commentID}`, {
     headers,
     method: 'POST',
-    body: {
+    body: JSON.stringify({
       option: vote,
-    },
+    }),
   })
     .then(res => {
       return res.json();
     })
     .then(json => {
-      console.log(json);
       return dispatch({
-        type: SAVED_COMMENT,
+        type: EDITED_COMMENT,
         payload: json,
       });
     })

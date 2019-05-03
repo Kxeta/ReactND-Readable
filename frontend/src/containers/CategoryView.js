@@ -15,10 +15,10 @@ import './CategoryView.css';
 import Header from '../components/Header';
 import { withRouter } from 'react-router-dom';
 import {
-  upVote,
-  downVote,
-  orderByTimestamp,
-  orderByVoteScore,
+  UPVOTE,
+  DOWNVOTE,
+  ORDER_BY_TIMESTAMP,
+  ORDER_BY_VOTESCORE,
 } from '../constants/utils';
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import SortIcon from '@material-ui/icons/Sort';
@@ -107,7 +107,7 @@ export class CategoryView extends Component {
             <MenuItem
               onClick={() => {
                 this.handleClose();
-                this.handleSort(orderByTimestamp);
+                this.handleSort(ORDER_BY_TIMESTAMP);
               }}
             >
               <ArrowUpwardIcon /> Date
@@ -115,7 +115,7 @@ export class CategoryView extends Component {
             <MenuItem
               onClick={() => {
                 this.handleClose();
-                this.handleSort(orderByTimestamp, false);
+                this.handleSort(ORDER_BY_TIMESTAMP, false);
               }}
             >
               <ArrowDownwardIcon /> Date
@@ -123,7 +123,7 @@ export class CategoryView extends Component {
             <MenuItem
               onClick={() => {
                 this.handleClose();
-                this.handleSort(orderByVoteScore);
+                this.handleSort(ORDER_BY_VOTESCORE);
               }}
             >
               <ArrowUpwardIcon /> Vote Score
@@ -131,7 +131,7 @@ export class CategoryView extends Component {
             <MenuItem
               onClick={() => {
                 this.handleClose();
-                this.handleSort(orderByVoteScore, false);
+                this.handleSort(ORDER_BY_VOTESCORE, false);
               }}
             >
               <ArrowDownwardIcon /> Vote Score
@@ -153,8 +153,8 @@ export class CategoryView extends Component {
                     `${post.category}/post/${post.id}/edit`,
                   )
                 }
-                onUpVote={postID => this.props.votePostById(postID, upVote)}
-                onDownVote={postID => this.props.votePostById(postID, downVote)}
+                onUpVote={postID => this.props.votePostById(postID, UPVOTE)}
+                onDownVote={postID => this.props.votePostById(postID, DOWNVOTE)}
                 onDeletePost={postID => this.props.deletePostById(postID)}
                 postOwner={post.author === loggedUser}
               />

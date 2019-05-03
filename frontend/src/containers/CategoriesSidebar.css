@@ -2,6 +2,18 @@
   width: 240px;
 }
 
+.toolbar {
+  padding: 0 10px;
+}
+
+.toolbar h2 {
+  margin-bottom: 0;
+}
+
+.search-category {
+  width: 100%;
+}
+
 @media (min-width: 600px) {
   .drawer {
     width: 240px;

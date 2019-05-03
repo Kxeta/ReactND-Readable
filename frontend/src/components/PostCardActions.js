@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { IconButton, Typography } from '@material-ui/core';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
@@ -9,11 +9,13 @@ import './PostCardActions.css';
 const PostCardActions = props => {
   return (
     <div className="post-card-actions">
-      <div>
-        <IconButton aria-label="Comment">
-          <CommentIcon fontSize="small" color="primary" />
-        </IconButton>
-        <Typography>{`(${props.commentCount})`}</Typography>
+      <div className="comments-info">
+        {!props.hideComments && (
+          <Fragment>
+            <CommentIcon fontSize="small" color="primary" />
+            <Typography>{`(${props.commentCount})`}</Typography>
+          </Fragment>
+        )}
       </div>
       <div>
         <IconButton aria-label="UpVote" onClick={props.handleUpVote}>

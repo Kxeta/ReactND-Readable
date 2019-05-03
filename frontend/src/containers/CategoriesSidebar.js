@@ -70,6 +70,7 @@ class CategoriesSidebar extends Component {
                     value={filter}
                     margin="normal"
                     onChange={this.handleFilterChange}
+                    fullWidth
                   />
                 </div>
                 <Divider />

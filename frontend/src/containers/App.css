@@ -7,3 +7,8 @@
   background-color: #ab2f26 !important;
   color: white !important;
 }
+
+.app {
+  overflow: hidden;
+  height: 100vh;
+}

@@ -11,16 +11,39 @@ import {
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
+import './CommentFormDialog.css';
+
 class CommentFormDialog extends React.Component {
   state = {
     open: false,
+    comment: {},
     commentBody: '',
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.open !== prevState.open) {
+      if (
+        JSON.stringify(nextProps.comment) !== JSON.stringify(prevState.comment)
+      ) {
+        console.log('getDerivedStateFromProps1');
+        return {
+          open: nextProps.open,
+          comment: nextProps.comment,
+          commentBody: nextProps.comment.body,
+        };
+      }
+      console.log('getDerivedStateFromProps2');
       return {
         open: nextProps.open,
+      };
+    }
+    if (
+      JSON.stringify(nextProps.comment) !== JSON.stringify(prevState.comment)
+    ) {
+      console.log('getDerivedStateFromProps3');
+      return {
+        comment: nextProps.comment,
+        commentBody: nextProps.comment.body,
       };
     }
     return false;
@@ -38,12 +61,17 @@ class CommentFormDialog extends React.Component {
 
   handleConfirm = () => {
     const { handleConfirm } = this.props;
-    const { commentBody } = this.state;
-    handleConfirm && handleConfirm(commentBody);
+    const { comment, commentBody } = this.state;
+    handleConfirm &&
+      handleConfirm(
+        comment && comment.id ? { ...comment, body: commentBody } : commentBody,
+        comment && comment.id,
+      );
     this.handleClose();
   };
 
   handleInputChange = event => {
+    console.log('handleInputChange');
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -64,7 +92,7 @@ class CommentFormDialog extends React.Component {
         TransitionComponent={this.Transition}
       >
         <AppBar>
-          <Toolbar>
+          <Toolbar className="comment-form-toolbar">
             <IconButton
               color="inherit"
               onClick={this.handleClose}
@@ -80,7 +108,7 @@ class CommentFormDialog extends React.Component {
             </Button>
           </Toolbar>
         </AppBar>
-        <form onSubmit={this.handleConfirm}>
+        <form onSubmit={this.handleConfirm} className="comment-form">
           <TextField
             id="commentBody"
             name="commentBody"

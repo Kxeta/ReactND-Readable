@@ -1,16 +1,5 @@
-# TODO:
+# EXTRAS:
 
-- Create Comment List
-- Create Comment List Action Bar
-  \_ Add
-  \_ Sort
-  \_ Search
-- Create Comment List Item
-- Create Comment List Item Actions
-  \_ Edit
-  \_ Delete
-- Create Comment Form
-- Review All Styles
 - Create messages actions
 - Create messages reducers
 - Create messages Component
@@ -45,3 +34,12 @@
   \_ Edit
   \_ Delete
 - Create Post Create/Edit View
+- Create Comment Form
+- Create Comment List
+- Create Comment List Action Bar
+  \_ Add
+- Create Comment List Item
+- Create Comment List Item Actions
+  \_ Edit
+  \_ Delete
+- Review All Styles

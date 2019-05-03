@@ -1,70 +1,82 @@
-import React, { Component } from 'react';
-import Moment from 'moment';
-import { Typography, Button } from '@material-ui/core';
+import React, { Component, Fragment } from 'react';
+import { Typography, Button, Paper, Fab } from '@material-ui/core';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as CommentsActions from '../actions/comments';
 import { CommentFormDialog } from '../components';
+import AddIcon from '@material-ui/icons/AddComment';
+
+import './CommentList.css';
+import Comment from './Comment';
 
 class CommentList extends Component {
   state = {
     openCommentForm: false,
-    showLoader: true,
+    openEditCommentForm: {},
   };
 
   handleCancel = () => {
     this.setState({
       openCommentForm: false,
+      openEditCommentForm: {},
     });
   };
-  handleOpenCommentForm = () => {
-    this.setState({
-      openCommentForm: true,
-    });
-  };
-
-  handleConfirm = commentBody => {
-    const { loggedUser, post, sendComment } = this.props;
-    sendComment({
-      body: commentBody,
-      authorID: loggedUser,
-      parentID: post.id,
-    });
-  };
-
-  async componentDidMount() {
-    const { id } = this.props.post;
-    if (id) {
-      await this.props.getAllCommentsByPost(id);
+  handleToggleCommentForm = comment => {
+    if (comment) {
+      this.setState({
+        openCommentForm: !this.state.openCommentForm,
+        openEditCommentForm: comment,
+      });
+    } else {
+      this.setState({
+        openCommentForm: !this.state.openCommentForm,
+      });
     }
-    this.setState({
-      showLoader: false,
-    });
-  }
+  };
 
+  handleConfirm = (comment, isEditing) => {
+    const { loggedUser, post, sendComment, editCommentById } = this.props;
+    if (isEditing) {
+      editCommentById({
+        commentID: comment.id,
+        commentBody: comment.body,
+      });
+    } else {
+      sendComment({
+        body: comment,
+        author: loggedUser,
+        parentId: post.id,
+      });
+    }
+  };
   render() {
     const { comments } = this.props;
-    const { openCommentForm } = this.state;
+    const { openCommentForm, openEditCommentForm } = this.state;
     return (
-      <div className="comments">
-        <Typography variant="h6">
+      <Paper className="comments" elevation={1}>
+        <Fab
+          color="secondary"
+          aria-label="Add Comment"
+          className="add-button"
+          onClick={this.handleToggleCommentForm}
+        >
+          <AddIcon />
+        </Fab>
+        <Typography variant="h6" color="secondary">
           {comments && comments.length > 0 ? 'Comments:' : 'No comments yet...'}
         </Typography>
         {comments && comments.length > 0 ? (
-          comments.map((comment, key) => {
-            const date = Moment(comment.timestamp);
-            const momentDate = Moment(date).fromNow();
-            return (
-              <div key={key}>
-                <p>{`Date: ${date.format('MM/DD/YYYY')} (${momentDate})`}</p>
-                <p>{`Author: ${comment.author}`}</p>
-                <p>{`votes: ${comment.voteScore}`}</p>
-                <p>{`Body: ${comment.body}`}</p>
-              </div>
-            );
-          })
+          <Fragment>
+            {comments.map((comment, key) => (
+              <Comment
+                comment={comment}
+                key={key}
+                handleToggleForm={this.handleToggleCommentForm}
+              />
+            ))}
+          </Fragment>
         ) : (
-          <Button color="primary" onClick={this.handleOpenCommentForm}>
+          <Button color="primary" onClick={this.handleToggleCommentForm}>
             Be the first to comment!
           </Button>
         )}
@@ -72,17 +84,20 @@ class CommentList extends Component {
           open={openCommentForm}
           handleConfirm={this.handleConfirm}
           handleCancel={this.handleCancel}
+          comment={
+            openEditCommentForm && openEditCommentForm.id
+              ? openEditCommentForm
+              : ''
+          }
         />
-      </div>
+      </Paper>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    post: state.posts.post,
     comments: state.comments.comments,
-    isLoading: state.comments.isLoading,
     loggedUser: state.user.loggedUser,
   };
 };
@@ -90,8 +105,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getAllCommentsByPost: CommentsActions.getAllCommentsByPost,
       sendComment: CommentsActions.sendComment,
+      editCommentById: CommentsActions.editCommentById,
     },
     dispatch,
   );

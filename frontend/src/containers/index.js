@@ -5,6 +5,7 @@ import CategoryView from './CategoryView';
 import Post from './Post';
 import PostForm from './PostForm';
 import CommentsList from './CommentsList';
+import Comment from './Comment';
 
 export {
   App,
@@ -14,4 +15,5 @@ export {
   Post,
   PostForm,
   CommentsList,
+  Comment,
 };

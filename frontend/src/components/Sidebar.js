@@ -10,7 +10,7 @@ const Sidebar = props => {
   return (
     <List>
       {props.list.map((item, index) => (
-        <Link key={index} to={item.path}>
+        <Link key={index} to={item.path} className="list-link">
           <ListItem button key={index}>
             <ListItemText primary={item.name.toUpperCase()} />
           </ListItem>

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as PostsActions from '../actions/posts';
+import * as CommentsActions from '../actions/comments';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from '../theme/theme';
 import {
@@ -15,7 +16,7 @@ import {
 } from '../components';
 import { Paper, Typography, Divider } from '@material-ui/core';
 
-import { upVote, downVote } from '../constants/utils';
+import { UPVOTE, DOWNVOTE } from '../constants/utils';
 import CommentList from './CommentList';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -30,6 +31,7 @@ export class Post extends Component {
   state = {
     postID: null,
     showLoader: true,
+    showCommentLoader: true,
     openDialog: false,
   };
 
@@ -51,10 +53,12 @@ export class Post extends Component {
     const { postID } = this.props.match.params;
     if (postID !== 'new') {
       await this.props.getPostById(postID);
+      await this.props.getAllCommentsByPost(postID);
     }
     this.setState({
       postID: postID,
       showLoader: false,
+      showCommentLoader: false,
     });
   }
 
@@ -72,8 +76,15 @@ export class Post extends Component {
   };
 
   render() {
-    const { isLoading, post, votePostById, loggedUser, history } = this.props;
-    const { showLoader, postID, openDialog } = this.state;
+    const {
+      isLoading,
+      post,
+      votePostById,
+      loggedUser,
+      history,
+      comments,
+    } = this.props;
+    const { showLoader, postID, openDialog, showCommentLoader } = this.state;
     let date = null;
     let momentDate = null;
     const menuElements = [];
@@ -123,7 +134,7 @@ export class Post extends Component {
               handleGoBack={this.handleBack}
             />
             <main className="content">
-              <Paper className="post-main-content">
+              <Paper className="post-main-content" elevation={5}>
                 <header className="content-header">
                   <div>
                     <Typography variant="h5" color="primary">
@@ -146,13 +157,13 @@ export class Post extends Component {
                   <Typography>{post.body}</Typography>
                 </div>
                 <PostCardActions
-                  commentCount={post.commentCount}
+                  commentCount={comments && comments.length}
                   voteScore={post.voteScore}
-                  handleUpVote={() => votePostById(postID, upVote)}
-                  handleDownVote={() => votePostById(postID, downVote)}
+                  handleUpVote={() => votePostById(postID, UPVOTE)}
+                  handleDownVote={() => votePostById(postID, DOWNVOTE)}
                 />
               </Paper>
-              <CommentList />
+              {showCommentLoader ? <Loader /> : <CommentList post={post} />}
             </main>
           </MuiThemeProvider>
         )}
@@ -164,6 +175,7 @@ export class Post extends Component {
 const mapStateToProps = state => {
   return {
     post: state.posts.post,
+    comments: state.comments.comments,
     isLoading: state.posts.isLoading,
     loggedUser: state.user.loggedUser,
   };
@@ -175,6 +187,7 @@ const mapDispatchToProps = dispatch =>
       getPostById: PostsActions.getPostById,
       votePostById: PostsActions.votePostById,
       deletePostById: PostsActions.deletePostById,
+      getAllCommentsByPost: CommentsActions.getAllCommentsByPost,
     },
     dispatch,
   );

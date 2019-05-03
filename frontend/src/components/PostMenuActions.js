@@ -41,7 +41,13 @@ export default class PostMenuActions extends Component {
           onClose={this.handleToggleActions}
         >
           {this.props.menuElements.map((menuItem, key) => (
-            <MenuItem onClick={menuItem.onClick} key={key}>
+            <MenuItem
+              onClick={props => {
+                menuItem.onClick(props);
+                this.handleToggleActions();
+              }}
+              key={key}
+            >
               {menuItem.content}
             </MenuItem>
           ))}

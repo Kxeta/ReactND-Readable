@@ -3,7 +3,7 @@ export const headers = {
   Authorization: 'champs-authorized',
   'Content-Type': 'application/json',
 };
-export const upVote = 'upVote';
-export const downVote = 'downVote';
-export const orderByTimestamp = 'timestamp';
-export const orderByVoteScore = 'voteScore';
+export const UPVOTE = 'upVote';
+export const DOWNVOTE = 'downVote';
+export const ORDER_BY_TIMESTAMP = 'timestamp';
+export const ORDER_BY_VOTESCORE = 'voteScore';
