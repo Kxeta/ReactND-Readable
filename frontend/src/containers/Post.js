@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Moment from 'moment';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -24,10 +24,6 @@ import AlertDialog from '../components/AlertDialog';
 import './Post.css';
 
 export class Post extends Component {
-  static propTypes = {
-    // prop: PropTypes,
-  };
-
   state = {
     postID: null,
     showLoader: true,
@@ -171,6 +167,19 @@ export class Post extends Component {
     );
   }
 }
+
+Post.propTypes = {
+  comments: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  deletePostById: PropTypes.func,
+  getAllCommentsByPost: PropTypes.func,
+  getPostById: PropTypes.func,
+  history: PropTypes.object,
+  isLoading: PropTypes.bool,
+  loggedUser: PropTypes.string,
+  match: PropTypes.object,
+  post: PropTypes.object,
+  votePostById: PropTypes.func,
+};
 
 const mapStateToProps = state => {
   return {

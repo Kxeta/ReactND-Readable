@@ -5,6 +5,7 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import CommentIcon from '@material-ui/icons/Comment';
 
 import './PostCardActions.css';
+import { PropTypes } from 'prop-types';
 
 const PostCardActions = props => {
   return (
@@ -28,6 +29,14 @@ const PostCardActions = props => {
       </div>
     </div>
   );
+};
+
+PostCardActions.propTypes = {
+  commentCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  handleDownVote: PropTypes.func,
+  handleUpVote: PropTypes.func,
+  hideComments: PropTypes.bool,
+  voteScore: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default PostCardActions;

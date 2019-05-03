@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Moment from 'moment';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -17,10 +17,6 @@ import AlertDialog from '../components/AlertDialog';
 // import './Comment.css';
 
 export class Post extends Component {
-  static propTypes = {
-    // prop: PropTypes,
-  };
-
   state = {
     openDialog: false,
   };
@@ -37,8 +33,6 @@ export class Post extends Component {
     this.toggleDeleteDialog();
     this.props.deleteCommentById(id);
   };
-
-  componentDidMount() {}
 
   render() {
     const { comment, voteCommentById, loggedUser } = this.props;
@@ -116,6 +110,14 @@ export class Post extends Component {
     );
   }
 }
+
+Post.propTypes = {
+  comment: PropTypes.object,
+  deleteCommentById: PropTypes.func,
+  handleToggleForm: PropTypes.func,
+  loggedUser: PropTypes.string,
+  voteCommentById: PropTypes.func,
+};
 
 const mapStateToProps = state => {
   return {

@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/AddComment';
 
 import './CommentList.css';
 import Comment from './Comment';
+import { PropTypes } from 'prop-types';
 
 class CommentList extends Component {
   state = {
@@ -94,6 +95,14 @@ class CommentList extends Component {
     );
   }
 }
+
+CommentList.propTypes = {
+  comments: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  editCommentById: PropTypes.func,
+  loggedUser: PropTypes.string,
+  post: PropTypes.object,
+  sendComment: PropTypes.func,
+};
 
 const mapStateToProps = state => {
   return {

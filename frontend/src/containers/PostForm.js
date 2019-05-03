@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as PostsActions from '../actions/posts';
 import * as CategoriesActions from '../actions/categories';
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import Loader from '../components/Loader';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from '../theme/theme';
@@ -23,10 +23,6 @@ import {
 import './PostForm.css';
 
 class PostForm extends Component {
-  // static propTypes = {
-  //   prop: PropTypes
-  // }
-
   state = {
     postID: null,
     showLoader: true,
@@ -201,6 +197,19 @@ class PostForm extends Component {
     );
   }
 }
+
+PostForm.propTypes = {
+  categoriesList: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  editPostById: PropTypes.func,
+  getAllCategories: PropTypes.func,
+  getPostById: PropTypes.func,
+  history: PropTypes.object,
+  isLoading: PropTypes.bool,
+  loggedUser: PropTypes.string,
+  match: PropTypes.object,
+  post: PropTypes.object,
+  sendPost: PropTypes.func,
+};
 
 const mapStateToProps = state => {
   return {

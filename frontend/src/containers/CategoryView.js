@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 // Actions
 import * as PostsActions from '../actions/posts';
@@ -26,10 +26,6 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 export class CategoryView extends Component {
-  static propTypes = {
-    // prop: PropTypes
-  };
-
   state = {
     openMenu: false,
     anchorMenu: null,
@@ -165,6 +161,19 @@ export class CategoryView extends Component {
     );
   }
 }
+
+CategoryView.propTypes = {
+  category: PropTypes.string,
+  deletePostById: PropTypes.func,
+  getAllPosts: PropTypes.func,
+  getAllPostsFromCategory: PropTypes.func,
+  handleDrawerToggle: PropTypes.func,
+  history: PropTypes.object,
+  loggedUser: PropTypes.string,
+  posts: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  sortPosts: PropTypes.func,
+  votePostById: PropTypes.func,
+};
 
 const mapStateToProps = state => ({
   posts: state.posts,

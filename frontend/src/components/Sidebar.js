@@ -5,6 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Link } from 'react-router-dom';
 
 import './Sidebar.css';
+import { PropTypes } from 'prop-types';
 
 const Sidebar = props => {
   return (
@@ -18,6 +19,10 @@ const Sidebar = props => {
       ))}
     </List>
   );
+};
+
+Sidebar.propTypes = {
+  list: PropTypes.array,
 };
 
 export default Sidebar;

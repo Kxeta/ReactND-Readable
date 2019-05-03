@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 // Actions
 import * as CategoriesActions from '../actions/categories';
@@ -80,6 +80,13 @@ class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  categories: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  getAllCategories: PropTypes.func,
+  history: PropTypes.object,
+  match: PropTypes.object,
+};
 
 const mapStateToProps = state => {
   return { ...state };

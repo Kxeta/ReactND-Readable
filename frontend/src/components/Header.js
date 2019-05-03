@@ -9,6 +9,7 @@ import {
 import { ArrowBack, Menu } from '@material-ui/icons';
 
 import './Header.css';
+import { PropTypes } from 'prop-types';
 
 const Header = props => {
   const {
@@ -51,6 +52,15 @@ const Header = props => {
       </AppBar>
     </div>
   );
+};
+
+Header.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  goBack: PropTypes.bool,
+  handleDrawerToggle: PropTypes.func,
+  handleGoBack: PropTypes.func,
+  hasSidebar: PropTypes.bool,
+  title: PropTypes.string,
 };
 
 export default Header;

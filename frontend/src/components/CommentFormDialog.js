@@ -12,6 +12,7 @@ import {
 import CloseIcon from '@material-ui/icons/Close';
 
 import './CommentFormDialog.css';
+import { PropTypes } from 'prop-types';
 
 class CommentFormDialog extends React.Component {
   state = {
@@ -25,14 +26,12 @@ class CommentFormDialog extends React.Component {
       if (
         JSON.stringify(nextProps.comment) !== JSON.stringify(prevState.comment)
       ) {
-        console.log('getDerivedStateFromProps1');
         return {
           open: nextProps.open,
           comment: nextProps.comment,
           commentBody: nextProps.comment.body,
         };
       }
-      console.log('getDerivedStateFromProps2');
       return {
         open: nextProps.open,
       };
@@ -40,7 +39,6 @@ class CommentFormDialog extends React.Component {
     if (
       JSON.stringify(nextProps.comment) !== JSON.stringify(prevState.comment)
     ) {
-      console.log('getDerivedStateFromProps3');
       return {
         comment: nextProps.comment,
         commentBody: nextProps.comment.body,
@@ -71,7 +69,6 @@ class CommentFormDialog extends React.Component {
   };
 
   handleInputChange = event => {
-    console.log('handleInputChange');
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -126,5 +123,11 @@ class CommentFormDialog extends React.Component {
     );
   }
 }
+
+CommentFormDialog.propTypes = {
+  dialogTitle: PropTypes.string,
+  handleCancel: PropTypes.func,
+  handleConfirm: PropTypes.func,
+};
 
 export default CommentFormDialog;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Hidden, Drawer, TextField, Divider } from '@material-ui/core';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import './CategoriesSidebar.css';
 import { Sidebar } from '../components';
@@ -108,6 +108,13 @@ class CategoriesSidebar extends Component {
     );
   }
 }
+
+CategoriesSidebar.propTypes = {
+  categories: PropTypes.object,
+  container: PropTypes.any,
+  handleDrawerToggle: PropTypes.func,
+  mobileOpen: PropTypes.bool,
+};
 const mapStateToProps = state => {
   return {
     categories: state.categories,

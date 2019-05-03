@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Moment from 'moment';
 import {
   Card,
@@ -21,7 +21,13 @@ import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 
 export default class PostCard extends Component {
   static propTypes = {
-    // prop: PropTypes,
+    handleClick: PropTypes.func,
+    handleClickEdit: PropTypes.func,
+    onDeletePost: PropTypes.func,
+    onDownVote: PropTypes.func,
+    onUpVote: PropTypes.func,
+    post: PropTypes.object,
+    postOwner: PropTypes.bool,
   };
 
   state = {

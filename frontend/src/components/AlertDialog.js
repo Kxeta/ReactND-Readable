@@ -5,10 +5,21 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { PropTypes } from 'prop-types';
 
 class AlertDialog extends React.Component {
   state = {
     open: false,
+  };
+
+  static propTypes = {
+    alertText: PropTypes.string,
+    alertTitle: PropTypes.string,
+    cancelText: PropTypes.string,
+    confirmText: PropTypes.string,
+    handleCancel: PropTypes.func,
+    handleConfirm: PropTypes.func,
+    open: PropTypes.bool,
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {

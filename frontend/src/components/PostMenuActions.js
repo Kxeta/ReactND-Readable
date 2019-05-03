@@ -1,15 +1,11 @@
 import React, { Component, Fragment } from 'react';
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 import { IconButton, Menu, MenuItem } from '@material-ui/core';
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 export default class PostMenuActions extends Component {
-  // static propTypes = {
-  //   prop: PropTypes
-  // }
-
   state = {
     openActions: false,
     menuElement: null,
@@ -56,3 +52,7 @@ export default class PostMenuActions extends Component {
     );
   }
 }
+
+PostMenuActions.propTypes = {
+  menuElements: PropTypes.array,
+};
