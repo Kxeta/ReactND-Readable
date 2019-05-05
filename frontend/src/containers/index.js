@@ -6,6 +6,7 @@ import Post from './Post';
 import PostForm from './PostForm';
 import CommentsList from './CommentsList';
 import Comment from './Comment';
+import NotFound from './NotFound';
 
 export {
   App,
@@ -16,4 +17,5 @@ export {
   PostForm,
   CommentsList,
   Comment,
+  NotFound,
 };

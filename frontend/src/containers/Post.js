@@ -58,6 +58,14 @@ export class Post extends Component {
     });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { post, history } = this.props;
+    console.log('Post Update', history);
+    if (post && !post.id) {
+      history.push(`${history.location.pathname}/LostButNotForgotten`);
+    }
+  }
+
   handleBack = () => {
     const { history } = this.props;
     const { category } = this.props.match.params;

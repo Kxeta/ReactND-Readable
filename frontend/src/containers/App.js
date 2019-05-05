@@ -4,6 +4,7 @@ import './App.css';
 import Home from './Home';
 import Post from './Post';
 import PostForm from './PostForm';
+import NotFound from './NotFound';
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
             component={PostForm}
           />
           <Route exact path="/post/new" component={PostForm} />
+          <Route component={NotFound} />
         </Switch>
       </div>
     );
